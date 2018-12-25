@@ -1,0 +1,51 @@
+.title {
+ font-family: 'Ubuntu', sans-serif;
+ color: #1E8ED9;
+ margin-left: 215px;
+ font-size: 60px;
+}
+
+
+.heading {
+  font-family: 'Ubuntu', sans-serif;
+  color: #1E8ED9;
+  margin-left: 80px;
+}
+
+.airplanePic {
+  height: 80px;
+  width: 200px;
+  margin-left: 220px;
+}
+
+.errorForm {
+  border: 1px solid red;
+}
+
+.messageText {
+  font-family: 'Ubuntu', sans-serif;
+  color: #1E8ED9;
+}
+
+.toTextField {
+  margin-left: 54px;
+  width: 300px;
+  height: 30px;
+}
+
+.bodyTextField {
+  margin-left: 10px;
+  width: 300px;
+  height: 300px;
+}
+
+.submitButton {
+  margin-left: 220px;
+  height: 30px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.submitButton:hover {
+  background-color: #39759E;
+}
