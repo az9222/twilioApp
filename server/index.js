@@ -17,6 +17,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.post('/api/messages', (req, res) => {
   res.header('Content-Type', 'application/json');
+  console.log(req.body);
   client.messages
     .create({
       from: config.config.twilioConfig.number,

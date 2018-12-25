@@ -1,11 +1,14 @@
 import React from 'react';
+import { Query } from 'mongoose';
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      to: '',
-      body: '',
+      message: {
+        to: '',
+        body: ''
+      },
       submission: false,
     }
     this.onNumberChange = this.onNumberChange.bind(this);
@@ -15,19 +18,25 @@ class Form extends React.Component {
   
   onNumberChange(e) {
     e.preventDefault();
-    let newState = Object.assign({}, this.state.to);
+    let newState = Object.assign({}, this.state.message.to);
     newState[e.target.name] = e.target.value;
     this.setState({
-      to: newState
+      message: {
+        to: newState.to,
+        body: this.state.message.body
+      }
     });
   };
 
   onBodyChange(e) {
     e.preventDefault();
-    let newState = Object.assign({}, this.state.body);
+    let newState = Object.assign({}, this.state.message.body);
     newState[e.target.name] = e.target.value;
     this.setState({
-      body: newState
+      message: {
+        to: this.state.message.to,
+        body: newState.body
+      }
     });
   };
 
@@ -41,16 +50,14 @@ class Form extends React.Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(this.state.body)
+      body: JSON.stringify(this.state.message)
     })
     .then(res => res.json())
     .then(data => {
       if (data.success) {
         this.setState({
           submission: false, 
-          to: '',
-          body: ''
-        })
+        })
       } else {
         this.setState({
           submission: false
@@ -60,6 +67,9 @@ class Form extends React.Component {
   };
 
   render() {
+    console.log(this.state.message);
+    console.log(this.state.message.to);
+    console.log(this.state.message.body);
     return (
       <form onSubmit={this.onMessageSubmit} >
         <label><span className="messageText"> To: </span>
