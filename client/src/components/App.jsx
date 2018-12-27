@@ -10,12 +10,13 @@ class App extends React.Component {
     return (
     <div>
       <h1 className="title">Welcome</h1>
-      <h2 className="heading">Send a text to instantly receive flight details!</h2>
       <br />
       <br />
       <img src="http://images.clipartpanda.com/airline-clipart-airline-clipart-airplane-clipart.jpg" className="airplanePic" />
       <br />
       <br />
+      <h2 className="heading">Text your flight # to "+19196299635" to instantly receive your flight status!</h2>
+      <h3 className="heading">Keep track of flights that you have here: </h3>
       <Form />
     </div>
     )

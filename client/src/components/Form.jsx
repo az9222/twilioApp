@@ -1,90 +1,64 @@
 import React from 'react';
-import { Query } from 'mongoose';
+import FlightInfo from './FlightInfo.jsx';
+const axios = require('axios');
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: {
-        to: '',
-        body: ''
-      },
-      submission: false,
+      flightNumber: '',
+      timeDate: '',
+      destination: '',
+      flightInfo: []
     }
-    this.onNumberChange = this.onNumberChange.bind(this);
-    this.onBodyChange = this.onBodyChange.bind(this);
-    this.onMessageSubmit = this.onMessageSubmit.bind(this);
+    this.onFlightNumberChange = this.onFlightNumberChange.bind(this);
+    this.onFlightInfoSubmit = this.onFlightInfoSubmit.bind(this);
+    this.getFlightInfo = this.getFlightInfo.bind(this);
   }
+
+  componentDidMount(){
+    this.getFlightInfo();
+  }
+
+  onFlightNumberChange(e) {
+    e.preventDefault();
+    let newState = Object.assign({}, this.state.flightNumber);
+    newState[e.target.name] = e.target.value;
+    this.setState({
+      flightNumber: newState
+    });
+  };
   
-  onNumberChange(e) {
+  onFlightInfoSubmit(e) {
     e.preventDefault();
-    let newState = Object.assign({}, this.state.message.to);
-    newState[e.target.name] = e.target.value;
-    this.setState({
-      message: {
-        to: newState.to,
-        body: this.state.message.body
-      }
-    });
+    axios.post('/flightInfo', this.state.flightNumber);
   };
 
-  onBodyChange(e) {
-    e.preventDefault();
-    let newState = Object.assign({}, this.state.message.body);
-    newState[e.target.name] = e.target.value;
-    this.setState({
-      message: {
-        to: this.state.message.to,
-        body: newState.body
-      }
-    });
-  };
-
-  onMessageSubmit(e) {
-    e.preventDefault();
-    this.setState({
-      submission: true
-    });
-    fetch('/api/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.state.message)
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        this.setState({
-          submission: false, 
-        })
-      } else {
-        this.setState({
-          submission: false
-        });
-      };
-    });
-  };
+  getFlightInfo() {
+    axios.get('/flightInfo')
+    .then((results) => {
+      let joined = this.state.flightInfo.concat(results);
+      this.setState({
+        flightInfo: joined
+      })
+    })
+    .catch((error) => {console.log(error)});
+  };
 
   render() {
-    console.log(this.state.message);
-    console.log(this.state.message.to);
-    console.log(this.state.message.body);
     return (
-      <form onSubmit={this.onMessageSubmit} >
-        <label><span className="messageText"> To: </span>
-          <input name="to" onChange={(e) => this.onNumberChange(e)} 
+      <form onSubmit={this.onFlightInfoSubmit}>
+        <label><span className="messageText"> Flight Number: </span>
+          <input name="flightNumber" onChange={(e) => this.onFlightNumberChange(e)} 
           className="toTextField" />
         </label>
         <br />
         <br />
-        <label><span className="messageText"> Message: </span>
-          <input name="body" onChange={(e) => this.onBodyChange(e)} 
-            className="bodyTextField" />
-        </label>
-        <br />
-        <br />
         <input type="submit" className="submitButton" /> 
+        <div>
+          <h2 className="toTextField">Flight Info: </h2>
+          <FlightInfo flightInfo={this.state.flightInfo} />
+        </div>
       </form>
     )
   };

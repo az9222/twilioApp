@@ -1,16 +1,15 @@
 const mongoose = require('mongoose');
 const db = require('./index.js');
 
-const messageSchema = mongoose.Schema({
-  to: String,
-  body: String
+const flightSchema = mongoose.Schema({
+  flightInfo: String
 });
 
-const MessageModel = mongoose.model('MessageModel', messageSchema);
+const FlightModel = mongoose.model('FlightModel', flightSchema);
 
-const save = (message, callback) => {
-  const newMessage = new MessageModel(message);
-  newMessage.save((err, results) => {
+const save = (flight, callback) => {
+  const newFlight = new FlightModel(flight);
+  newFlight.save((err, results) => {
     if (err) {
       callback(err, null);
     } else {
@@ -19,7 +18,40 @@ const save = (message, callback) => {
   });
 };
 
+const getFlightInfo = (callback) => {
+  FlightModel.find({}, (err, results) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, results);
+    }
+  });
+};
+
+const deleteFlightInfo = (id, callback) => {
+  FlightModel.remove({_id: id}, (err, results) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, results);
+    }
+  });
+};
+
+// const updateFlightInfo = (id, callback) => {
+//   FlightModel.findById(id, (err, results) => {
+//     if (err) {
+//       callback(err, null);
+//     } else {
+
+//     }
+//   })
+// };
+
 module.exports ={
-  MessageModel, 
-  save
+  FlightModel, 
+  save,
+  getFlightInfo,
+  deleteFlightInfo,
+  // updateFlightInfo
 };
