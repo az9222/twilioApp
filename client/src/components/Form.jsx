@@ -12,7 +12,7 @@ class Form extends React.Component {
       flightInfo: []
     }
     this.onFlightNumberChange = this.onFlightNumberChange.bind(this);
-    this.onFlightInfoSubmit = this.onFlightInfoSubmit.bind(this);
+    // this.onFlightInfoSubmit = this.onFlightInfoSubmit.bind(this);
     this.getFlightInfo = this.getFlightInfo.bind(this);
   }
 
@@ -29,15 +29,15 @@ class Form extends React.Component {
     });
   };
   
-  onFlightInfoSubmit(e) {
-    e.preventDefault();
-    axios.post('/flightInfo', this.state.flightNumber);
-  };
+//   onFlightInfoSubmit(e) {
+//     e.preventDefault();
+//     axios.post('/flightInfo', this.state.flightNumber);
+//   };
 
   getFlightInfo() {
     axios.get('/flightInfo')
     .then((results) => {
-      let joined = this.state.flightInfo.concat(results);
+      let joined = this.state.flightInfo.concat(results.data);
       this.setState({
         flightInfo: joined
       })
@@ -46,8 +46,10 @@ class Form extends React.Component {
   };
 
   render() {
+    console.log('flightinfo', this.state.flightInfo)
     return (
-      <form onSubmit={this.onFlightInfoSubmit}>
+//       <form onSubmit={this.onFlightInfoSubmit}>
+        <form>
         <label><span className="messageText"> Flight Number: </span>
           <input name="flightNumber" onChange={(e) => this.onFlightNumberChange(e)} 
           className="toTextField" />

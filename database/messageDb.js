@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const db = require('./index.js');
 
 const flightSchema = mongoose.Schema({
-  flightInfo: String
+  flightNumber: String,
+  destination: String,
+  date: String,
+  time: String,
 });
 
 const FlightModel = new mongoose.model('FlightModel', flightSchema);
