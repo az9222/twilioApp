@@ -5,7 +5,7 @@ const flightSchema = mongoose.Schema({
   flightInfo: String
 });
 
-const FlightModel = mongoose.model('FlightModel', flightSchema);
+const FlightModel = new mongoose.model('FlightModel', flightSchema);
 
 const save = (flight, callback) => {
   const newFlight = new FlightModel(flight);
@@ -20,6 +20,16 @@ const save = (flight, callback) => {
 
 const getFlightInfo = (callback) => {
   FlightModel.find({}, (err, results) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, results);
+    }
+  });
+};
+
+const getFlightInfoForOne = (id, callback) => {
+  FlightModel.find({_id: id}, (err, results) => {
     if (err) {
       callback(err, null);
     } else {
@@ -53,5 +63,6 @@ module.exports ={
   save,
   getFlightInfo,
   deleteFlightInfo,
+  getFlightInfoForOne
   // updateFlightInfo
 };
