@@ -7,12 +7,13 @@ class Form extends React.Component {
     super(props);
     this.state = {
       flightNumber: '',
-      timeDate: '',
+      time: '',
       destination: '',
+      date: '',
       flightInfo: []
     }
-    this.onFlightNumberChange = this.onFlightNumberChange.bind(this);
-    // this.onFlightInfoSubmit = this.onFlightInfoSubmit.bind(this);
+    this.onFlightChange = this.onFlightChange.bind(this);
+    this.onFlightInfoSubmit = this.onFlightInfoSubmit.bind(this);
     this.getFlightInfo = this.getFlightInfo.bind(this);
   }
 
@@ -20,19 +21,18 @@ class Form extends React.Component {
     this.getFlightInfo();
   }
 
-  onFlightNumberChange(e) {
+  onFlightChange(e) {
     e.preventDefault();
-    let newState = Object.assign({}, this.state.flightNumber);
-    newState[e.target.name] = e.target.value;
     this.setState({
-      flightNumber: newState
+      [e.target.name] : e.target.value
     });
-  };
+  }
   
-//   onFlightInfoSubmit(e) {
-//     e.preventDefault();
-//     axios.post('/flightInfo', this.state.flightNumber);
-//   };
+  onFlightInfoSubmit(e) {
+    e.preventDefault();
+    axios.post('/flightInfo', this.state);
+    this.getFlightInfo();
+  };
 
   getFlightInfo() {
     axios.get('/flightInfo')
@@ -46,12 +46,28 @@ class Form extends React.Component {
   };
 
   render() {
-    console.log('flightinfo', this.state.flightInfo)
     return (
-//       <form onSubmit={this.onFlightInfoSubmit}>
-        <form>
+      <form onSubmit={this.onFlightInfoSubmit}>
         <label><span className="messageText"> Flight Number: </span>
-          <input name="flightNumber" onChange={(e) => this.onFlightNumberChange(e)} 
+          <input name="flightNumber" onChange={(e) => this.onFlightChange(e)} 
+          className="toTextField" />
+        </label>
+        <br />
+        <br />
+        <label><span className="messageText"> Destination: </span>
+          <input name="destination" onChange={(e) => this.onFlightChange(e)} 
+          className="toTextField" />
+        </label>
+        <br />
+        <br />
+        <label><span className="messageText"> Date: </span>
+          <input name="date" onChange={(e) => this.onFlightChange(e)} 
+          className="toTextField" />
+        </label>
+        <br />
+        <br />
+        <label><span className="messageText"> Time: </span>
+          <input name="time" onChange={(e) => this.onFlightChange(e)} 
           className="toTextField" />
         </label>
         <br />
