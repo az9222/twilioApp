@@ -51,21 +51,10 @@ const deleteFlightInfo = (id, callback) => {
   });
 };
 
-// const updateFlightInfo = (id, callback) => {
-//   FlightModel.findById(id, (err, results) => {
-//     if (err) {
-//       callback(err, null);
-//     } else {
-
-//     }
-//   })
-// };
-
 module.exports ={
   FlightModel, 
   save,
   getFlightInfo,
   deleteFlightInfo,
   getFlightInfoForOne
-  // updateFlightInfo
 };

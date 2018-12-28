@@ -1,7 +1,7 @@
 {
   "name": "twilio-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Text flight number to Twilio phone number and receive instant statuses. Add flight information to MongoDB on the web.",
   "main": "index.js",
   "scripts": {
     "build": "webpack -d --watch",
@@ -9,7 +9,7 @@
     "start": "nodemon ./server/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Angela Zhou and Michelle Lee",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.23.1",
@@ -22,14 +22,11 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "faker": "^4.1.0",
-    "fs": "0.0.1-security",
     "mongoose": "^5.4.1",
     "nodemon": "^1.18.9",
     "path": "^0.12.7",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "redis": "^2.8.0",
     "request": "^2.88.0",
     "twilio": "^3.26.0"
   }

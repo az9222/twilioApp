@@ -1,19 +1,19 @@
 const express = require("express");
 const http = require('http');
-const messageDb = require('../database/messageDb.js');
-const app = express();
-const MessagingResponse = require('twilio').twiml.MessagingResponse;
+const request = require('request');
 const bodyParser = require('body-parser');
 const path = require('path');
-const port = process.env.PORT || 3000;
-const fetch = require('node-fetch');
-const request = require('request');
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
+const messageDb = require('../database/messageDb.js');
 const config = require('../config.js');
+const app = express();
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../public')));
 
+//api call with Twilio services
 app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
   let flightId = req.body.Body;
@@ -25,9 +25,9 @@ app.post('/sms', (req, res) => {
       }
     }
     request(options, (err, response, body) => {
-    let bodyJSON = JSON.parse(body)
-    if (err) {
-      twiml.message('Sorry! Flight not found.');
+    let bodyJSON = JSON.parse(body);
+    if (err) {
+      twiml.message('Sorry! Flight not found.');
     } else {
       if(bodyJSON.error) {
         twiml.message(bodyJSON.error)
@@ -37,7 +37,7 @@ app.post('/sms', (req, res) => {
         let arrival = flightData.arrival.iataCode;
         let flight = flightData.flight.iataNumber;
         let status = flightData.status;
-        twiml.message(`${flight} from ${departure} to ${arrival}: ${status}`)
+        twiml.message(`${flight} from ${departure} to ${arrival}: ${status}`);
         }
       }
         res.writeHead(200, {'Content-Type': 'text/xml'});
@@ -45,6 +45,7 @@ app.post('/sms', (req, res) => {
       });
   });
 
+//RESTful API for web services
 app.post('/flightInfo', (req, res) => {
   messageDb.save(req.body, (err, results) => {
     if (err) {
@@ -64,9 +65,6 @@ app.get('/flightInfo', (req, res) => {
     }
   });
 });
-
-//get with cache
-app.get
 
 app.get('/flightInfo/:id', (req, res) => {
   messageDb.getFlightInfoForOne(req.params.id, (err, results) => {
