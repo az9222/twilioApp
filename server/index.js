@@ -24,19 +24,6 @@ app.post('/sms', (req, res) => {
     res.end(twiml.toString());
 });
 
-// app.post('/sms', (req, res) => {
-//     const twiml = new MessagingResponse();
-//     let flightId = req.body.Body;
-//     let url = `https://aviation-edge.com/v2/public/flights?key=c27849-c7cc8c&flightIata=${flightId}`;
-//     fetch(url)
-//       .then(response => response.json())
-//       .then(if (response == {error: "No Record Found or Flight not currently detected by receivers. "}))
-//       .then(twiml.message('Sorry! Flight not found.'))
-//       // .catch(error => twiml.message('Sorry! Flight not found.'));
-//       res.writeHead(200, {'Content-Type': 'text/xml'});
-//       res.end(twiml.toString());
-//   });
-
 app.post('/flightInfo', (req, res) => {
   messageDb.save(req.body, (err, results) => {
     if (err) {

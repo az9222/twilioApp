@@ -15,6 +15,7 @@ class Form extends React.Component {
     this.onFlightChange = this.onFlightChange.bind(this);
     this.onFlightInfoSubmit = this.onFlightInfoSubmit.bind(this);
     this.getFlightInfo = this.getFlightInfo.bind(this);
+    this.deleteFlightInfo = this.deleteFlightInfo.bind(this);
   }
 
   componentDidMount(){
@@ -27,19 +28,33 @@ class Form extends React.Component {
       [e.target.name] : e.target.value
     });
   }
-  
+
   onFlightInfoSubmit(e) {
     e.preventDefault();
-    axios.post('/flightInfo', this.state);
+    axios.post('/flightInfo', this.state)
     this.getFlightInfo();
   };
 
   getFlightInfo() {
-    axios.get('/flightInfo')
-    .then((results) => {
-      let joined = this.state.flightInfo.concat(results.data);
+    fetch('/flightInfo')
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
       this.setState({
-        flightInfo: joined
+        flightInfo: data
+      })
+    })
+    .catch((error) => {console.log(error)});
+  };
+
+  deleteFlightInfo(e, item) { 
+    e.preventDefault();
+    alert(`Flight number ${item.flightNumber} deleted`);
+    axios.delete(`/flightInfo/${item._id}`)
+    .then((results) => {
+      this.setState({
+        flightInfo: results.data
       })
     })
     .catch((error) => {console.log(error)});
@@ -75,7 +90,7 @@ class Form extends React.Component {
         <input type="submit" className="submitButton" /> 
         <div>
           <h2 className="toTextField">Flight Info: </h2>
-          <FlightInfo flightInfo={this.state.flightInfo} />
+          <FlightInfo flightInfo={this.state.flightInfo} deleteFlightInfo={this.deleteFlightInfo}/>
         </div>
       </form>
     )

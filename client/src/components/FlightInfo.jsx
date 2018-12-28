@@ -10,6 +10,7 @@ const FlightInfo = (props) => {
             <span>&nbsp;Destination: {result.destination}</span> 
             <span>&nbsp;Date: {result.date}</span> 
             <span>&nbsp;Time: {result.time}</span> 
+            <button onClick={(e) => props.deleteFlightInfo(e, result)}>X</button>
           </div>
         )
       })}
