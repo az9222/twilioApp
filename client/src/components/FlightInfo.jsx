@@ -6,6 +6,7 @@ const FlightInfo = (props) => {
       {props.flightInfo.map((result, index) => {
         return (
           <div className="single-result" key={index}>
+            {props.renderFlightInfo}
             <span>&nbsp;Flight Number: {result.flightNumber}</span> 
             <span>&nbsp;Destination: {result.destination}</span> 
             <span>&nbsp;Date: {result.date}</span> 

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const db = mongoose.connect('mongodb://localhost/messages');
+const db = mongoose.connect('mongodb://localhost/flightInfo');
 const database = mongoose.connection;
 
 database.once('open', ()=>{console.log('database connection open')})

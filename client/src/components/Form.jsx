@@ -1,5 +1,7 @@
 import React from 'react';
 import FlightInfo from './FlightInfo.jsx';
+import Dropdown from './Dropdown.jsx';
+import SearchBar from './SearchBar.jsx';
 const axios = require('axios');
 
 class Form extends React.Component {
@@ -10,12 +12,17 @@ class Form extends React.Component {
       time: '',
       destination: '',
       date: '',
-      flightInfo: []
+      flightInfo: [],
+      query: ''
     }
     this.onFlightChange = this.onFlightChange.bind(this);
     this.onFlightInfoSubmit = this.onFlightInfoSubmit.bind(this);
     this.getFlightInfo = this.getFlightInfo.bind(this);
     this.deleteFlightInfo = this.deleteFlightInfo.bind(this);
+    this.sortEarliestFirst = this.sortEarliestFirst.bind(this);
+    this.onInputSearch = this.onInputSearch.bind(this);
+    this.filterForSearchedResults = this.filterForSearchedResults.bind(this);
+    this.renderFlightInfo = this.renderFlightInfo.bind(this);
   }
 
   componentDidMount(){
@@ -60,39 +67,76 @@ class Form extends React.Component {
     .catch((error) => {console.log(error)});
   };
 
+  sortEarliestFirst(list) {
+    return list.sort((a, b) => {
+      return a.date - b.date;
+    });
+  };
+
+  onInputSearch(e) {
+    e.preventDefault();
+    let query = e.target.value;
+    this.setState({
+      query: query
+    });
+  };
+
+  filterForSearchedResults(list, word) {
+    let lowerCaseQuery = word.toLowerCase();
+    return list.filter((searchedWord) => {
+      let lowerCaseSearchedWord = searchedWord.flightNumber.toLowerCase();
+      if (lowerCaseSearchedWord.includes(lowerCaseQuery)) {
+        return true;
+      } else {
+        return false;
+      };
+    });
+  };
+
+  renderFlightInfo() {
+    let flightInfo = this.state.flightInfo;
+    if (this.state.query) {
+      flightInfo = this.filterForSearchedResults(flightInfo, this.state.query);
+    }
+  };
+
   render() {
     return (
-      <form onSubmit={this.onFlightInfoSubmit}>
-        <label><span className="messageText"> Flight Number: </span>
-          <input name="flightNumber" onChange={(e) => this.onFlightChange(e)} 
-          className="toTextField" />
-        </label>
-        <br />
-        <br />
-        <label><span className="messageText"> Destination: </span>
-          <input name="destination" onChange={(e) => this.onFlightChange(e)} 
-          className="toTextField" />
-        </label>
-        <br />
-        <br />
-        <label><span className="messageText"> Date: </span>
-          <input name="date" onChange={(e) => this.onFlightChange(e)} 
-          className="toTextField" />
-        </label>
-        <br />
-        <br />
-        <label><span className="messageText"> Time: </span>
-          <input name="time" onChange={(e) => this.onFlightChange(e)} 
-          className="toTextField" />
-        </label>
-        <br />
-        <br />
-        <input type="submit" className="submitButton" /> 
-        <div>
-          <h2 className="toTextField">Flight Info: </h2>
-          <FlightInfo flightInfo={this.state.flightInfo} deleteFlightInfo={this.deleteFlightInfo}/>
-        </div>
-      </form>
+      <div>
+        <Dropdown />
+        <SearchBar onSearch={this.onInputSearch} />
+        <form onSubmit={this.onFlightInfoSubmit}>
+          <label><span className="messageText"> Flight Number: </span>
+            <input name="flightNumber" onChange={(e) => this.onFlightChange(e)} 
+            className="toTextField" />
+          </label>
+          <br />
+          <br />
+          <label><span className="messageText"> Destination: </span>
+            <input name="destination" onChange={(e) => this.onFlightChange(e)} 
+            className="toTextField" />
+          </label>
+          <br />
+          <br />
+          <label><span className="messageText"> Date: </span>
+            <input name="date" onChange={(e) => this.onFlightChange(e)} 
+            className="toTextField" />
+          </label>
+          <br />
+          <br />
+          <label><span className="messageText"> Time: </span>
+            <input name="time" onChange={(e) => this.onFlightChange(e)} 
+            className="toTextField" />
+          </label>
+          <br />
+          <br />
+          <input type="submit" className="submitButton" /> 
+          <div>
+            <h2 className="toTextField">Flight Info: </h2>
+            <FlightInfo flightInfo={this.state.flightInfo} deleteFlightInfo={this.deleteFlightInfo} renderFlightInfo={this.renderFlightInfo}/>
+          </div>
+        </form>
+      </div>
     )
   };
 };
