@@ -33,7 +33,7 @@ const saveIntoDatabase = (data) => {
   });
 };
 
-//front end. When someone chooses to post their flight #, it goes into the mongoDB.
+//front end. When someone chooses to post their flight #, it goes into the mongoDB. But don't I already have this on my client side...? Check with neil.
 app.post('/flightInfo', (req, res) => {
   saveIntoDatabase(req.body);
 });

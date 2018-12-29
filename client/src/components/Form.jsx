@@ -9,14 +9,26 @@ class Form extends React.Component {
       flightNumber: '',
       phoneNumber: ''
     }
-    this.onInfoChange = this.onInfoChange.bind(this);
+    this.onFlightChange = this.onFlightChange.bind(this);
+    this.onPhoneChange = this.onPhoneChange.bind(this);
     this.onSubmitFlightData = this.onSubmitFlightData.bind(this);
   };
 
-  onInfoChange(e){
+  onFlightChange(e) {
     e.preventDefault();
+    let newStateFlight = Object.assign({}, this.state.flightNumber);
+    newStateFlight[e.target.name] = e.target.value;
     this.setState({
-      [e.target.name] : e.target.value
+      flightNumber: newStateFlight
+    });
+  };
+
+  onPhoneChange(e) {
+    e.preventDefault();
+    let newStatePhone = Object.assign({}, this.state.phoneNumber);
+    newStatePhone[e.target.name] = e.target.value;
+    this.setState({
+      phoneNumber: newStatePhone
     });
   };
 
@@ -43,19 +55,18 @@ class Form extends React.Component {
   };
 
   render() {
-  console.log('flightNumber', this.state.flightNumber)
     return (
       <form onSubmit={this.onSubmitFlightData}>
         <label className="heading"> Flight Number:
-          <input type='text' name="flightNumber" onChange = {(e) => this.onInfoChange(e)} /> 
+          <input type='text' name="flightNumber" onChange = {(e) => this.onFlightChange(e)} /> 
         </label>
         <label className="heading"> Phone Number:
-          <input type='text' name="phoneNumber" onChange = {(e) => this.onInfoChange(e)}/>
+          <input type='text' name="phoneNumber" onChange = {(e) => this.onPhoneChange(e)}/>
         </label>
         <input type="submit" className="submit"/>
       </form>
     )
-  }
+  };
 };
 
 export default Form;

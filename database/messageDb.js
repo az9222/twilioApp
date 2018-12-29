@@ -52,6 +52,7 @@ const deleteFlightInfo = (id, callback) => {
   });
 };
 
+//????
 const updateFlightInfo = (flightId, status, callback) => {
   FlightModel.update({flight: flightId}, {status: status}, (err, results) => {
     if (err) {
