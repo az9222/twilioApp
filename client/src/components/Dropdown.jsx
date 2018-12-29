@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './Form.jsx';
 import ThanksForm from './ThanksForm.jsx';
+import HomePage from './HomePage.jsx';
 
 class Dropdown extends React.Component {
   constructor(props) {
@@ -21,7 +22,11 @@ class Dropdown extends React.Component {
   };
 
   renderForm() {
-    let form = this.state.form;
+    if (this.state.selectValue === "Select") {
+      return (
+        <HomePage />
+      )
+    }
     if (this.state.selectedValue === "Yes") {
       return (
         <Form />
@@ -32,10 +37,10 @@ class Dropdown extends React.Component {
         <ThanksForm />
       )
     }
+    return <HomePage />
   };
 
   render() {
-    console.log(this.state.selectedValue)
     return (
       <div>
         <select onChange={this.handleSelectOption}>

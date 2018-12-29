@@ -1,5 +1,6 @@
 import React from 'react';
 import Dropdown from './Dropdown.jsx';
+import Homepage from './Homepage.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,7 +19,6 @@ className="airplanePic" />
       <br />
       <h2 className="heading">Do you want to get texts about your flight status?</h2>
       <Dropdown />
-
     </div>
     )
   }
