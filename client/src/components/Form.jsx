@@ -6,7 +6,8 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      flightNumber: ''
+      flightNumber: '',
+      phoneNumber: ''
     }
     this.onInfoChange = this.onInfoChange.bind(this);
     this.onSubmitFlightData = this.onSubmitFlightData.bind(this);
@@ -27,7 +28,8 @@ class Form extends React.Component {
       qs: {
         key: config.flightApiKey,
         flightIata: this.state.flightNumber
-      }
+      },
+      phoneNumber: this.state.phoneNumber
     }
     axios.get(options.url, {
       'params': options.qs
@@ -35,7 +37,8 @@ class Form extends React.Component {
     axios.post('/flightInfo', options)
     .catch((error) => {console.log(error)});
     this.setState({
-      flightNumber: ''
+      flightNumber: '',
+      phoneNumber: ''
     });
   };
 
@@ -43,13 +46,13 @@ class Form extends React.Component {
   console.log('flightNumber', this.state.flightNumber)
     return (
       <form onSubmit={this.onSubmitFlightData}>
-        <label> Flight Number:
+        <label className="heading"> Flight Number:
           <input type='text' name="flightNumber" onChange = {(e) => this.onInfoChange(e)} /> 
         </label>
-        <label> Phone Number:
+        <label className="heading"> Phone Number:
           <input type='text' name="phoneNumber" onChange = {(e) => this.onInfoChange(e)}/>
         </label>
-        <input type="submit" />
+        <input type="submit" className="submit"/>
       </form>
     )
   }

@@ -49,3 +49,26 @@
 .submitButton:hover {
   background-color: #39759E;
 }
+
+.submit {
+    background-color: #1E8ED9;
+    color: white;
+    padding: 14px 15px;
+    margin-left: 225px;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+    width: 15.5%;
+    font-size: 18px;
+    border-radius: 80px;
+    font-family: 'Ubuntu', sans-serif;
+  }
+  
+  select {
+    background-color: #1E8ED9;
+    color: white;
+    padding: 10px;
+    margin-left: 300px;
+    border-radius: 80px;
+    font-family: 'Ubuntu', sans-serif;
+  }
