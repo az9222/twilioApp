@@ -62,10 +62,21 @@ const deleteFlightInfo = (id, callback) => {
   });
 };
 
+const updateFlightInfo = (flightId, status, callback) => {
+  FlightModel.update({flight: flightId}, {status: status}, (err, results) => {
+    if (err) {
+      callback (err, null);
+    } else {
+      callback(null, results);
+    }
+  });
+};
+
 module.exports ={
   FlightModel, 
   save,
   getFlightInfo,
   deleteFlightInfo,
   getFlightsInProgressStatus,
+  updateFlightInfo
 };
