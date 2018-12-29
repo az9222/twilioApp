@@ -42,16 +42,6 @@ const getFlightsInProgressStatus = (callback) => {
   });
 };
 
-// const getFlightInfoForOne = (id, callback) => {
-//   FlightModel.find({_id: id}, (err, results) => {
-//     if (err) {
-//       callback(err, null);
-//     } else {
-//       callback(null, results);
-//     }
-//   });
-// };
-
 const deleteFlightInfo = (id, callback) => {
   FlightModel.remove({_id: id}, (err, results) => {
     if (err) {

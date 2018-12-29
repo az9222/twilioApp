@@ -69,17 +69,17 @@ app.post('/sms', (req, res) => {
     let status = flightData.status;
     let phoneNumber = req.body.From;
     twiml.message(`Flight ${flight} from ${departure} to ${arrival}: ${status}`)
-  //   saveIntoDatabase({ departure, arrival, flight, status, phoneNumber }).then((statusObj) => {
-  //   if(statusObj.err) {
-  //     res.status(statusObj.statusCode).send(statusObj.err);
-  //     return;
-  //   } else {
-  //     res.send(statusObj.statusCode);
-  //   }
-  // });
+    saveIntoDatabase({ departure, arrival, flight, status, phoneNumber }).then((statusObj) => {
+    if(statusObj.err) {
+      res.status(statusObj.statusCode).send(statusObj.err);
+      return;
+    } else {
+      res.send(statusObj.statusCode);
+    }
+  });
 }); //REVISIT.
-res.writeHead(200, {'Content-Type': 'text/xml'});
-res.end(twiml.toString());
+  res.writeHead(200, {'Content-Type': 'text/xml'});
+  res.end(twiml.toString());
 });
 
 app.get('/flightInfo', (req, res) => {
@@ -91,16 +91,6 @@ app.get('/flightInfo', (req, res) => {
     }
   });
 });
-
-// app.get('/flightInfo/:id', (req, res) => {
-//   messageDb.getFlightInfoForOne(req.params.id, (err, results) => {
-//     if (err) {
-//       res.status(500).send(err);
-//     } else {
-//       res.status(200).send(results);
-//     }
-//   });
-// });
 
 app.delete('/flightInfo/:id', (req, res) => {
   messageDb.deleteFlightInfo(req.params.id, (err, results) => {
