@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 const db = require('./index.js');
 
 const flightSchema = mongoose.Schema({
-  flightNumber: String,
-  destination: String,
-  date: String,
-  time: String,
+  departure: String,
+  arrival: String,
+  flight: String,
+  status: String,
+  phoneNumber: String
 });
 
 const FlightModel = new mongoose.model('FlightModel', flightSchema);
@@ -31,15 +32,25 @@ const getFlightInfo = (callback) => {
   });
 };
 
-const getFlightInfoForOne = (id, callback) => {
-  FlightModel.find({_id: id}, (err, results) => {
+const getFlightsInProgressStatus = (callback) => {
+  FlightModel.find({status: { $in: ['started', 'en-route', 'unknown'] }},  (err, results) => {
     if (err) {
-      callback(err, null);
+      callback (err, null);
     } else {
       callback(null, results);
     }
   });
 };
+
+// const getFlightInfoForOne = (id, callback) => {
+//   FlightModel.find({_id: id}, (err, results) => {
+//     if (err) {
+//       callback(err, null);
+//     } else {
+//       callback(null, results);
+//     }
+//   });
+// };
 
 const deleteFlightInfo = (id, callback) => {
   FlightModel.remove({_id: id}, (err, results) => {
@@ -56,5 +67,5 @@ module.exports ={
   save,
   getFlightInfo,
   deleteFlightInfo,
-  getFlightInfoForOne
+  getFlightsInProgressStatus,
 };

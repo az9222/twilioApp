@@ -4,3 +4,4 @@ jspm_packages/
 
 #Ignore these files
 config.js
+.vscode
