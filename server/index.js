@@ -186,11 +186,6 @@ const intervalFn = () => {
         .catch((error) => {console.log(error)});
       })
     });
-  //Optional: Parse data for flights not yet departed
-
-  //Get status for all flights
-  //Check for discrepancies between flights
-  //Send status updates to all users/phone numbers with updates.
   // setTimeout(intervalFn, 1000); //Commented out for now
 }
 
