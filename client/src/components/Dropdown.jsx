@@ -17,7 +17,7 @@ class Dropdown extends React.Component {
     e.preventDefault();
     this.setState({
       selectedValue: e.target.value
-    })
+    });
   };
 
   renderForm() {
@@ -25,22 +25,21 @@ class Dropdown extends React.Component {
       return (
         <HomePage />
       )
-    }
+    };
     if (this.state.selectedValue === "Yes") {
       return (
         <Form />
       )
-    }
+    };
     if (this.state.selectedValue === "No") {
       return (
         <ThanksForm />
       )
-    }
+    };
     return <HomePage />
   };
 
   render() {
-    console.log(this.state.selectedValue)
     return (
       <div>
         <select onChange={this.handleSelectOption}>

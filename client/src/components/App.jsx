@@ -20,7 +20,7 @@ className="airplanePic" />
       <Dropdown />
     </div>
     )
-  }
+  };
 };
 
 export default App;

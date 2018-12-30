@@ -12,14 +12,14 @@ const flightSchema = mongoose.Schema({
 const FlightModel = new mongoose.model('FlightModel', flightSchema);
 
 const save = (flight, callback) => {
-  const newFlight = new FlightModel(flight);
-  newFlight.save((err, results) => {
-    if (err) {
-      callback(err, null);
-    } else {
-      callback(null, results);
-    }
-  });
+    const newFlight = new FlightModel(flight);
+    newFlight.save((err, results) => {
+        if (err) {
+            callback(err, null);
+        } else {
+            callback(null, results);
+        }
+    });
 };
 
 const getFlightInfo = (callback) => {
@@ -33,9 +33,9 @@ const getFlightInfo = (callback) => {
 };
 
 const getFlightsInProgressStatus = (callback) => {
-  FlightModel.find({status: { $in: ['started', 'en-route', 'unknown'] }},  (err, results) => {
+  FlightModel.find({ status: { $in: ['started', 'en-route', 'unknown'] } }, (err, results) => {
     if (err) {
-      callback (err, null);
+      callback(err, null);
     } else {
       callback(null, results);
     }
@@ -43,7 +43,7 @@ const getFlightsInProgressStatus = (callback) => {
 };
 
 const deleteFlightInfo = (id, callback) => {
-  FlightModel.remove({flight: id}, (err, results) => {
+  FlightModel.remove({ flight: id }, (err, results) => {
     if (err) {
       callback(err, null);
     } else {
@@ -53,20 +53,31 @@ const deleteFlightInfo = (id, callback) => {
 };
 
 const updateFlightInfo = (flightId, status, callback) => {
-  FlightModel.update({flight: flightId}, {status: status}, (err, results) => {
+  FlightModel.update({ flight: flightId }, { status: status }, (err, results) => {
     if (err) {
-      callback (err, null);
+      callback(err, null);
     } else {
       callback(null, results);
     }
   });
 };
 
-module.exports ={
-  FlightModel, 
+const checkIfFlightIsInDb = (flight, callback) => {
+  FlightModel.find({ flight: flight }, (err, results) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, results);
+    }
+  });
+};
+
+module.exports = {
+  FlightModel,
   save,
   getFlightInfo,
   deleteFlightInfo,
   getFlightsInProgressStatus,
-  updateFlightInfo
+  updateFlightInfo,
+  checkIfFlightIsInDb
 };
