@@ -8,7 +8,6 @@ class Dropdown extends React.Component {
     super(props);
     this.state = {
       selectedValue: '',
-      form: ''
     }
     this.handleSelectOption = this.handleSelectOption.bind(this);
     this.renderForm = this.renderForm.bind(this);
@@ -41,6 +40,7 @@ class Dropdown extends React.Component {
   };
 
   render() {
+    console.log(this.state.selectedValue)
     return (
       <div>
         <select onChange={this.handleSelectOption}>
@@ -51,7 +51,7 @@ class Dropdown extends React.Component {
         {this.renderForm()}
       </div>
     )
-  }
+  };
 };
 
 export default Dropdown;

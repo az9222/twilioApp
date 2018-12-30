@@ -2,7 +2,7 @@ import React from 'react';
 
 const ThanksForm = () => {
   return (
-    <h1>Thank you!</h1>
+    <h1 className="heading">Thank you!</h1>
   )
 };
 

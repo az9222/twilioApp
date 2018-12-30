@@ -1,6 +1,5 @@
 import React from 'react';
 import Dropdown from './Dropdown.jsx';
-import Homepage from './Homepage.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,7 +9,7 @@ class App extends React.Component {
   render() {
     return (
     <div>
-      <h1 className="title">Welcome</h1>
+      <h1 className="title">Welcome to Flightlio</h1>
       <br />
       <br />
       <img src="http://images.clipartpanda.com/airline-clipart-airline-clipart-airplane-clipart.jpg"

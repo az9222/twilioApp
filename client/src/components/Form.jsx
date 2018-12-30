@@ -10,7 +10,7 @@ class Form extends React.Component {
       phoneNumber: ''
     }
     this.onFlightChange = this.onFlightChange.bind(this);
-    this.onPhoneChange = this.onPhoneChange.bind(this);
+    this.onPhoneChange  = this.onPhoneChange.bind(this);
     this.onSubmitFlightData = this.onSubmitFlightData.bind(this);
   };
 
@@ -57,11 +57,11 @@ class Form extends React.Component {
   render() {
     return (
       <form onSubmit={this.onSubmitFlightData}>
-        <label className="heading"> Flight Number:
-          <input type='text' name="flightNumber" onChange = {(e) => this.onFlightChange(e)} /> 
+        <label className="flightNumberField"> Flight Number:
+          <input type='text' name="flightNumber" className="formText" onChange = {(e) => this.onFlightChange(e)} /> 
         </label>
-        <label className="heading"> Phone Number:
-          <input type='text' name="phoneNumber" onChange = {(e) => this.onPhoneChange(e)}/>
+        <label className="phoneNumberField"> Phone Number:
+          <input type='text' name="phoneNumber" className="formText" onChange = {(e) => this.onPhoneChange(e)}/>
         </label>
         <input type="submit" className="submit"/>
       </form>

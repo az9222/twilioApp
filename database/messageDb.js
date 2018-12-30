@@ -43,7 +43,7 @@ const getFlightsInProgressStatus = (callback) => {
 };
 
 const deleteFlightInfo = (id, callback) => {
-  FlightModel.remove({_id: id}, (err, results) => {
+  FlightModel.remove({flight: id}, (err, results) => {
     if (err) {
       callback(err, null);
     } else {
@@ -52,7 +52,6 @@ const deleteFlightInfo = (id, callback) => {
   });
 };
 
-//????
 const updateFlightInfo = (flightId, status, callback) => {
   FlightModel.update({flight: flightId}, {status: status}, (err, results) => {
     if (err) {
