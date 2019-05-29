@@ -1,5 +1,5 @@
 # twilioApp
-Created by Angela Zhou and Michelle Lee
+Created by Angela Zhou
 
 This is a full-stack application that uses both Twilio services and the Aviation Edge API. A user can receive instant flight updates by texting the Twilio phone number.
 
